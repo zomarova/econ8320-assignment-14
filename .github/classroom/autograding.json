@@ -1,0 +1,64 @@
+{
+  "tests": [
+    {
+      "name": "Test pCalc",
+      "setup": "",
+      "run": "python -m unittest tests/test_pCalc.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test pTime",
+      "setup": "",
+      "run": "python -m unittest tests/test_pTime.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test pResults",
+      "setup": "",
+      "run": "python -m unittest tests/test_pResults.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test sCalc",
+      "setup": "",
+      "run": "python -m unittest tests/test_sCalc.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test sTime",
+      "setup": "",
+      "run": "python -m unittest tests/test_sTime.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test sResults",
+      "setup": "",
+      "run": "python -m unittest tests/test_sResults.py",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    }
+  ]
+}
