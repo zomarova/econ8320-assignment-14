@@ -14,7 +14,7 @@ si = {}
 for i in code:
     for j in i['source']:
         if "#si-exercise" in j:
-            test_code = j
+            test_code = "".join(i['source'])
 
 
 # todo: replace this with an actual test
