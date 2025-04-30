@@ -1,25 +1,89 @@
-name: GitHub Classroom Workflow
-
-on:
-  - push
-  - workflow_dispatch
-
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+- push
 permissions:
   checks: write
   actions: read
   contents: read
-
 jobs:
-  build:
-    name: Autograding
+  run-autograding-tests:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
           python-version: '3.9'
-      - run: |
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - uses: education/autograding@v1
+    - name: Test sCalc
+      id: test-scalc
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test sCalc
+        setup-command: ''
+        command: python -m unittest tests/test_sCalc.py
+        timeout: 3
+        max-score: 1
+    - name: Test pCalc
+      id: test-pcalc
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test pCalc
+        setup-command: ''
+        command: python -m unittest tests/test_pCalc.py
+        timeout: 3
+        max-score: 1
+    - name: Test sTime
+      id: test-stime
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test sTime
+        setup-command: ''
+        command: python -m unittest tests/test_sTime.py
+        timeout: 3
+        max-score: 1
+    - name: Test pTime
+      id: test-ptime
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test pTime
+        setup-command: ''
+        command: python -m unittest tests/test_pTime.py
+        timeout: 3
+        max-score: 1
+    - name: Test sResults
+      id: test-sresults
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test sResults
+        setup-command: ''
+        command: python -m unittest tests/test_sResults.py
+        timeout: 3
+        max-score: 1
+    - name: Test pResults
+      id: test-presults
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test pResults
+        setup-command: ''
+        command: python -m unittest tests/test_pResults.py
+        timeout: 3
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST-SCALC_RESULTS: "${{steps.test-scalc.outputs.result}}"
+        TEST-PCALC_RESULTS: "${{steps.test-pcalc.outputs.result}}"
+        TEST-STIME_RESULTS: "${{steps.test-stime.outputs.result}}"
+        TEST-PTIME_RESULTS: "${{steps.test-ptime.outputs.result}}"
+        TEST-SRESULTS_RESULTS: "${{steps.test-sresults.outputs.result}}"
+        TEST-PRESULTS_RESULTS: "${{steps.test-presults.outputs.result}}"
+      with:
+        runners: test-scalc,test-pcalc,test-stime,test-ptime,test-sresults,test-presults
